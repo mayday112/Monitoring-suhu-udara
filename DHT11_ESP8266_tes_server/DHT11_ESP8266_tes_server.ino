@@ -154,7 +154,9 @@ void setup() {
   server.on("/humidity", HTTP_GET, [](AsyncWebServerRequest * request) {
     request->send_P(200, "text/plain", String(h).c_str());
   });
-
+  server.onNotFound("/", HTTP_GET, [](AsyncWebServerRequest * request) {
+    request->send_P(200, "text/html", index_html, processor);
+  });
   // Start server
   server.begin();
 }
